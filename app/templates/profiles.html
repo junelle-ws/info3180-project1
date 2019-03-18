@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% include 'flash_messages.html' %}
+{% block main %}
+<link rel="stylesheet" href="{{ url_for('static', filename='static/css/styles.css') }}">
+<h1>Profiles</h1>
+
+{% if users|length > 0 %}
+
+{% for user in users %}
+<div class = 'border'>
+  
+ <div class = "grid"><img src="{{ url_for('static', filename="uploads/" + user.photo) }}" /></div>
+ 
+ <div class = "grid ">
+<div id = "info">
+{{ user.first_name }} 
+{{ user.last_name}}
+{% if  user.gender == 'F' %}
+<p>Female </p>
+{% else %}
+<p> Male</p>
+{% endif %}
+{{ user.location}}
+</div></div>
+<div class= "grid" >
+<a href="{{ url_for('user',userid=user['id']) }}"><button id="bttn" type="submit">View Profile</button></a></div>
+</div>
+{% endfor %}
+    {% else %}
+        <li>No profiles</li>
+{% endif %}
+{% endblock %}
